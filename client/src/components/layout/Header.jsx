@@ -13,6 +13,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import axios from "axios";
@@ -43,6 +44,8 @@ const Header = () => {
   );
   const { notificationCount } = useSelector((state) => state.chat);
 
+  const theme = useTheme();
+
   const handleMobile = () => dispatch(setIsMobile(true));
 
   const openSearch = () => dispatch(setIsSearch(true));
@@ -70,13 +73,15 @@ const Header = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }} height={"4rem"}>
-        <AppBar position="static" sx={{ bgcolor: blue }}>
+        <AppBar position="static" sx={{ bgcolor: "#1976d2" }}>
           <Toolbar>
             <Typography
               variant="h6"
-              sx={{ display: { xs: "none", sm: "block" } }}
+              fontFamily={"sans-serif"}
+              marginLeft={"2rem"}
+              sx={{ display: { xs: "none", sm: "block" }, fontWeight: 600 }}
             >
-              Chat
+              Chats
             </Typography>
             <Box sx={{ display: { xs: "block", sm: "none" } }}>
               <IconButton color="inherit" onClick={handleMobile}>
@@ -144,18 +149,35 @@ const Header = () => {
 const IconBtn = ({ title, onClick, icon, value }) => {
   return (
     <Tooltip title={title}>
-      <IconButton size="medium"
-  sx={{
-    bgcolor: "transparent",
-    color: "text.primary",
-    borderRadius: "0.75rem",
-    p: "0.6rem",
-    "&:hover": {
-      bgcolor: "rgba(0,0,0,0.05)",
-    },
-  }} onClick={onClick}>
+      <IconButton
+        size="medium"
+        sx={{
+          bgcolor: "transparent",
+          color: "text.primary",
+          borderRadius: "12px",
+          p: "0.6rem",
+          transition: "background 0.2s ease-in-out",
+          "&:hover": {
+            bgcolor: "action.hover",
+          },
+        }}
+        onClick={onClick}
+      >
         {value ? (
-          <Badge badgeContent={value} color="error">
+          <Badge
+            badgeContent={value}
+            color="error"
+            sx={{
+              "& .MuiBadge-badge": {
+                animation: "pop 0.3s ease-in-out",
+              },
+              "@keyframes pop": {
+                "0%": { transform: "scale(0.8)" },
+                "50%": { transform: "scale(1.2)" },
+                "100%": { transform: "scale(1)" },
+              },
+            }}
+          >
             {icon}
           </Badge>
         ) : (
