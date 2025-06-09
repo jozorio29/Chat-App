@@ -6,7 +6,7 @@ import { getBase64, getSockets } from "../lib/helper.js";
 
 const cookieOptions = {
   maxAge: 15 * 24 * 60 * 60 * 1000, // Expira en 15 días
-  sendSite: "none", // Restringe el envío de la cookie a solicitudes del mismo sitio
+  sendSite: "None", // Restringe el envío de la cookie a solicitudes del mismo sitio
   httpOnly: true, // Evita acceso desde JavaScript en el navegador
   secure: true, // Solo se envía por HTTPS
 };
